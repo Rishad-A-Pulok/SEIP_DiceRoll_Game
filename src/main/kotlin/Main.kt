@@ -1,17 +1,37 @@
+//ROll Dice Game
 import java.util.Random
 import java.util.Scanner
 
-//ROll Dice Game
-fun main() {
-    val scanner: Scanner = Scanner(System.`in`)
-    val random: Random = Random() //random class generates random numbers
-    var isGameOn = true
-    var d1 = random.nextInt(6) + 1//bound 6 means 0-5
-    var d2 = random.nextInt(6) + 1
-    var sum = d1 + d2
-    var target = 0
-    println("$d1 $d2 -> ${d1 + d2}")
+val scanner: Scanner = Scanner(System.`in`)
+val random: Random = Random() //random class generates random numbers
+var isGameOn = true
+var target = 0
+var d1 = 0
+var d2 = 0
+var sum = 0
+var repeat = true
 
+fun main() {
+    game()
+    while(!isGameOn){
+        print("Want to Play again? Press Y to continue or Press N to exit: ")
+        var value = scanner.nextLine()
+        if(value.lowercase() == "y"){
+            isGameOn = true
+            game()
+        }
+        else if(value.lowercase() == "n") {
+            println("Thanks for playing!")
+            break
+        }
+        else {
+            print("Wrong keyword!")
+        }
+    }
+}
+
+fun game(){
+    output()
     if(sum == 7 || sum == 11){
         println("You win!")
         isGameOn = false
@@ -26,10 +46,7 @@ fun main() {
             print("Hit Enter to roll again:")
             val readEnter = scanner.nextLine()
             if(readEnter.isEmpty()){
-                d1 = random.nextInt(6) + 1//bound 6 means 0-5
-                d2 = random.nextInt(6) + 1
-                sum = d1 + d2
-                println("$d1 $d2 -> ${d1 + d2}")
+                output()
                 if(sum == target){
                     println("You Win!")
                     isGameOn = false
@@ -41,4 +58,11 @@ fun main() {
             }
         }
     }
+}
+
+fun output(){
+    d1 = random.nextInt(6) + 1 //bound 6 means 0-5
+    d2 = random.nextInt(6) + 1
+    sum = d1 + d2
+    println("$d1 $d2 -> ${d1 + d2}")
 }
